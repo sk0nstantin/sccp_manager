@@ -933,7 +933,8 @@ trait ajaxHelper {
         $this->dbinterface->write('sccpdevice', $save_settings, 'replace');
         // Retrieve the phone buttons from $_REQUEST ($get_settings) and write back to
         // update sccpdeviceconfig via Trigger. reftype must be 'sccpdevice'|'sccpuser'|'sipdevice', not model id.
-        $save_buttons = $this->getPhoneButtons($get_settings, $name_dev, 'sccpdevice');
+        $button_ref_type = $get_settings['sccp_device_typeid'] ?? 'sccpdevice';
+        $save_buttons = $this->getPhoneButtons($get_settings, $name_dev, $button_ref_type);
         try {
             $this->dbinterface->write('sccpbuttons', $save_buttons, $update_hw, '', $name_dev);
         } catch (\Throwable $e) {
